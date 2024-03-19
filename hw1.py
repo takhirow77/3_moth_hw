@@ -7,7 +7,7 @@ dp = Dispatcher(bot)
 
 
 a = [1,2,3]
-b = random.randint(a)
+b = random.choice(a)
 
 @dp.message_handler(commands='start')
 async def start(message:types.Message):
@@ -15,7 +15,7 @@ async def start(message:types.Message):
 
 @dp.message_handler(text='1')
 async def one(message: types.Message):
-   if a == 1:
+   if b == 1:
       await message.answer('вы угадали')
       await message.answer_photo('https://media.makeameme.org/created/you-win-nothing-b744e1771f.jpg')
    else:
@@ -25,7 +25,7 @@ async def one(message: types.Message):
 
 @dp.message_handler(text='2')
 async def one(message: types.Message):
-   if a == 2:
+   if b == 2:
       await message.answer('вы угадали')
       await message.answer_photo('https://media.makeameme.org/created/you-win-nothing-b744e1771f.jpg')
    else:
@@ -35,9 +35,11 @@ async def one(message: types.Message):
 
 @dp.message_handler(text='3')
 async def one(message: types.Message):
-   if a == 3:
+   if b == 3:
       await message.answer('вы угадали')
       await message.answer_photo('https://media.makeameme.org/created/you-win-nothing-b744e1771f.jpg')
    else:
         await message.answer('не угадали')
         await message.answer_photo('https://media.makeameme.org/created/sorry-you-lose.jpg')
+
+executor.start_polling(dp)
