@@ -1,10 +1,23 @@
 from aiogram import Bot, Dispatcher, types, executor
 from config import token
 import logging
+import sqlite3
+from aiogram.dispatcher import FSMContext
+from aiogram.dispatcher.filters.state import State, StatesGroup
 
 bot = Bot(token=token)
 dp = Dispatcher(bot)
 logging.basicConfig(level=logging.INFO)
+
+conn = sqlite3.connect('bmw_test_drives.db')
+cursor = conn.cursor()
+cursor.execute('''CREATE TABLE IF NOT EXISTS test_drives (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    username INTEGER NOT NULL,
+                    model TEXT NOT NULL,
+                    date_time TEXT NOT NULL
+                    );''')
+conn.commit()
 
 @dp.message_handler(commands=['start'])
 async def start(message: types.Message):
@@ -188,14 +201,53 @@ async def num(message: types.Message):
 async def num(message: types.Message):
     await message.answer("Мы дадим гарантию на 3 года")
 
-@dp.message_handler(text="Тест драйв")
-async def num(message: types.Message):
-    await message.answer("Хотите пройти тест-драйв? Напишите нам, и мы устроим незабываемый опыт вождения!")
+test_buttons = [
+    types.KeyboardButton('взять на тест BMW i7 M70 xDRIVE'),
+    types.KeyboardButton('взять на тест BMW M440i xDrive Cabrio'),
+    types.KeyboardButton('взять на тест BMW X7 M60i'),
+    types.KeyboardButton("Назад")
+]
+test_keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True).add(*test_buttons)
 
+@dp.message_handler(text='Тест драйв')
+async def test_drive(message: types.Message):
+    await message.answer("Выберите модель для тест-драйва:", reply_markup=test_keyboard)
 
-@dp.message_handler(text='Назад')
-async def rollback(message: types.Message):
-    await start(message)
+@dp.message_handler(text='взять на тест BMW i7 M70 xDRIVE')
+async def test_car1(message: types.Message):
+    user_id = message.from_user.id
+    username = message.from_user.username
+    car_model = 'BMW i7 M70 xDRIVE'
+    date_time = message.date.strftime('%Y-%m-%d %H:%M:%S')
+    cursor.execute("INSERT INTO test_drives (username, model, date_time) VALUES (?, ?, ?)",
+                   (username, car_model, date_time))
+    conn.commit()
 
+    await message.answer('Вы записались на тест-драйв BMW i7 M70 xDRIVE. Приходите к нам в офис в указанное время.')
+
+@dp.message_handler(text='взять на тест BMW M440i xDrive Cabrio ')
+async def test_car1(message: types.Message):
+    user_id = message.from_user.id
+    username = message.from_user.username
+    car_model = 'BMW M440i xDrive Cabrio'
+    date_time = message.date.strftime('%Y-%m-%d %H:%M:%S')
+    cursor.execute("INSERT INTO test_drives (username, model, date_time) VALUES (?, ?, ?)",
+                   (username, car_model, date_time))
+    conn.commit()
+
+    await message.answer('Вы записались на тест-драйв BMW M440i xDrive Cabrio  . Приходите к нам в офис в указанное время.')
+
+@dp.message_handler(text='взять на тест BMW X7 M60i')
+async def test_car1(message: types.Message):
+    user_id = message.from_user.id
+    username = message.from_user.username
+    car_model = 'BMW X7 M60i'
+    date_time = message.date.strftime('%Y-%m-%d %H:%M:%S')
+    cursor.execute("INSERT INTO test_drives (username, model, date_time) VALUES (?, ?, ?)",
+                   (username, car_model, date_time))
+    conn.commit()
+
+    await message.answer('Вы записались на тест-драйв BMW X7 M60i . Приходите к нам в офис в указанное время.')
+    
 
 executor.start_polling(dp, skip_updates=True)
