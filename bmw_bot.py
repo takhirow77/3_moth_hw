@@ -81,11 +81,11 @@ async def num_9(message: types.Message):
 async def num_01(message: types.Message):
     await message.answer("Эта машинка BMW i7 M70 xDRIVE 27 925 000 сомов.")
 
-@dp.message_handler(text="Цена BMW M440i xDrive Cabrio ")
+@dp.message_handler(text="Цена BMW  M440i xDrive Cabrio")
 async def num_02(message: types.Message):
-    await message.answer("Эта машинка BMW M440i xDrive Cabrio 	8 650 000 сомов стоит")
+    await message.answer("Эта машинка BMW M440i xDrive Cabrio 8 650 000 сомов стоит")
 
-@dp.message_handler(text="Цена BMW X7 M60i ")
+@dp.message_handler(text="Цена BMW X7 M60i")
 async def num_03(message: types.Message):
     await message.answer("Эта машинка BMW X7 M60i 15 300 000 сомов стоит")
 
@@ -225,7 +225,7 @@ async def test_car1(message: types.Message):
 
     await message.answer('Вы записались на тест-драйв BMW i7 M70 xDRIVE. Приходите к нам в офис в указанное время.')
 
-@dp.message_handler(text='взять на тест BMW M440i xDrive Cabrio ')
+@dp.message_handler(text='взять на тест BMW M440i xDrive Cabrio')
 async def test_car1(message: types.Message):
     user_id = message.from_user.id
     username = message.from_user.username
