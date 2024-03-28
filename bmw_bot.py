@@ -66,7 +66,7 @@ async def num_7(message: types.Message):
 
 num1_button = [
     types.KeyboardButton('Цена BMW i7 M70 xDRIVE'),
-    types.KeyboardButton('Цена BMW  M440i xDrive Cabrio '),
+    types.KeyboardButton('Цена BMW  M440i xDrive Cabrio'),
     types.KeyboardButton('Цена BMW X7 M60i '),
     types.KeyboardButton("Назад")
 ]
