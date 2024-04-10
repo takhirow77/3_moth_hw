@@ -25,7 +25,6 @@ async def start(message: types.Message):
 
 @dp.message_handler(commands=['help'])
 async def help(message: types.Message):
-    print(message)
     await message.answer(f"Привет, {message.from_user.full_name}! Чем могу вам помочь?")
 
 start_buttons = [

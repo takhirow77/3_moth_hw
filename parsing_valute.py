@@ -21,6 +21,6 @@ async def send_currency_rates(message):
                                                   f"Курс USD: {currencies[0].text}\n"
                                                   f"Курс EUR: {currencies[2].text}\n"
                                                   f"Курс RUB: {currencies[4].text}\n"
-                                                  f"Курс KZT: {currencies[6].text}")
+                                                  f"Курс KZT: {currencies[6].text}")            
 
 executor.start_polling(dp, skip_updates=True)
