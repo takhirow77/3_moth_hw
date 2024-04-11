@@ -121,7 +121,7 @@ async def deposit_amount(message: types.Message, state: FSMContext):
 
 
         await message.answer(f"Баланс успешно пополнен на {amount}")
-
+        
     except ValueError as e:
         await message.answer(f"Ошибка: {e}")
         await state.finish()
